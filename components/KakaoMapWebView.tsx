@@ -10,7 +10,7 @@ interface KakaoMapWebViewProps {
 }
 
 const KakaoMapWebView: React.FC<KakaoMapWebViewProps> = ({
-  latitude = 37.566826, // 기본값: 서울 시청
+  latitude = 37.566826, // 기본값: 서울 시청; App.tsx 받는 값 없을시
   longitude = 126.9786567,
   level = 3,
 }) => {
@@ -89,9 +89,10 @@ const KakaoMapWebView: React.FC<KakaoMapWebViewProps> = ({
         </Text>
       </View>
     );
-  } else {
-    console.log(kakaoApiKey);
   }
+  //   } else {
+  //     console.log(kakaoApiKey);
+  //   }
 
   return (
     <WebView

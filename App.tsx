@@ -39,10 +39,11 @@ function AppContent() {
       <Text style={styles.text}>Kakao Map</Text>
       <View style={styles.mapContainer}>
         <KakaoMapWebView
-          latitude={37.566826} // 서울 시청
-          longitude={126.9786567}
-          level={3}
+          latitude={36.35068134001625} // 대전 시청
+          longitude={127.385312222259}
+          level={5} // 숫자가 작을수록 확대
         />
+        {/* 36.35068134001625, 127.385312222259 대전시청 37.566826, 126.9786567 서울시청 */}
       </View>
     </View>
   );

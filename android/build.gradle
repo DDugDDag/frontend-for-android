@@ -19,3 +19,5 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+implementation 'com.kakao.maps.open:android:2.12.8'
