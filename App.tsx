@@ -17,6 +17,8 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 // import { WebView } from 'react-native-webview';
+// import Config from 'react-native-config';
+import KakaoMapWebView from './components/KakaoMapWebView';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,7 +36,14 @@ function AppContent() {
 
   return (
     <View style={[styles.container, safeAreaInsets]}>
-      <Text style={styles.text}>native ddudda</Text>
+      <Text style={styles.text}>Kakao Map</Text>
+      <View style={styles.mapContainer}>
+        <KakaoMapWebView
+          latitude={37.566826} // 서울 시청
+          longitude={126.9786567}
+          level={3}
+        />
+      </View>
     </View>
   );
 }
@@ -44,9 +53,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 16,
   },
   text: {
     fontSize: 18,
+    marginBottom: 10,
+  },
+  mapContainer: {
+    flex: 1,
+    width: '100%',
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginVertical: 10,
+  },
+  apiKeyText: {
+    fontSize: 12,
+    marginTop: 10,
+    color: '#666',
   },
 });
 
