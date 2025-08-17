@@ -16,7 +16,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { WebView } from 'react-native-webview';
+// import { WebView } from 'react-native-webview';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';

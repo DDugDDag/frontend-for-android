@@ -1,7 +1,5 @@
 ### Android simulator 실행 커맨드
-
-cd /Users/naralee/Desktop/Academics/ddugddag/Nara-s-native-FE/androidfe &
-& npx react-native run-android
+npx react-native run-android
 
 ### 실행 환경
 
