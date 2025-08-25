@@ -84,9 +84,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.androidfe"
+    namespace "com.ddudda.ddudda"
     defaultConfig {
-        applicationId "com.androidfe"
+        applicationId "com.ddudda.ddudda"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -122,6 +122,9 @@ dependencies {
     
     // 카카오맵 SDK
     implementation 'com.kakao.maps.open:android:2.12.8'
+    
+    // 카카오 Android SDK (키 해시 확인을 위해)
+    implementation 'com.kakao.sdk:v2-common:2.20.6'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

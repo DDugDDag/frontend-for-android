@@ -5,12 +5,14 @@
  * @format
  */
 
+import React, { useState } from 'react';
 import {
   StatusBar,
   StyleSheet,
   useColorScheme,
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import {
   SafeAreaProvider,
@@ -19,6 +21,8 @@ import {
 // import { WebView } from 'react-native-webview';
 // import Config from 'react-native-config';
 import KakaoMapWebView from './components/KakaoMapWebView';
+// Native SDK 방식
+import KakaoMapNative from './components/KakaoMapNative';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -33,16 +37,38 @@ function App() {
 
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
+  const [useNativeSDK, setUseNativeSDK] = useState(false);
 
   return (
     <View style={[styles.container, safeAreaInsets]}>
-      <Text style={styles.text}>Kakao Map</Text>
+      <Text style={styles.text}>
+        Kakao Map ({useNativeSDK ? 'Native SDK' : 'WebView'})
+      </Text>
+
+      <TouchableOpacity
+        style={styles.switchButton}
+        onPress={() => setUseNativeSDK(!useNativeSDK)}
+      >
+        <Text style={styles.switchButtonText}>
+          {useNativeSDK ? 'WebView로 변경' : 'Native SDK로 변경'}
+        </Text>
+      </TouchableOpacity>
+
       <View style={styles.mapContainer}>
-        <KakaoMapWebView
-          latitude={36.35068134001625} // 대전 시청
-          longitude={127.385312222259}
-          level={5} // 숫자가 작을수록 확대
-        />
+        {useNativeSDK ? (
+          <KakaoMapNative
+            latitude={36.35068134001625} // 대전 시청
+            longitude={127.385312222259}
+            level={15}
+            style={styles.nativeMap}
+          />
+        ) : (
+          <KakaoMapWebView
+            latitude={36.35068134001625} // 대전 시청
+            longitude={127.385312222259}
+            level={1}
+          />
+        )}
         {/* 36.35068134001625, 127.385312222259 대전시청 37.566826, 126.9786567 서울시청 */}
       </View>
     </View>
@@ -60,12 +86,28 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
   },
+  switchButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  switchButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   mapContainer: {
     flex: 1,
     width: '100%',
     borderRadius: 8,
     overflow: 'hidden',
     marginVertical: 10,
+  },
+  nativeMap: {
+    flex: 1,
+    width: '100%',
   },
   apiKeyText: {
     fontSize: 12,

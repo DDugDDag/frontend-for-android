@@ -1,6 +1,7 @@
-package com.androidfe
+package com.ddudda.ddudda
 
 import android.app.Application
+import android.util.Log
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
@@ -10,6 +11,7 @@ import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.kakao.vectormap.KakaoMapSdk
+import com.kakao.sdk.common.util.Utility
 
 class MainApplication : Application(), ReactApplication {
 
@@ -19,6 +21,7 @@ class MainApplication : Application(), ReactApplication {
             PackageList(this).packages.apply {
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // add(MyReactNativePackage())
+              add(KakaoMapPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"
@@ -37,6 +40,19 @@ class MainApplication : Application(), ReactApplication {
     
     // 카카오맵 SDK 초기화
     KakaoMapSdk.init(this, BuildConfig.KAKAO_NATIVE_APP_KEY)
+    
+    // 키 해시 확인 (디버그 모드에서만)
+    if (BuildConfig.DEBUG) {
+        try {
+            val keyHash = Utility.getKeyHash(this)
+            Log.d("KakaoKeyHash", "Key Hash: $keyHash")
+            println("===== 카카오 키 해시 =====")
+            println("Key Hash: $keyHash")
+            println("=======================")
+        } catch (e: Exception) {
+            Log.e("KakaoKeyHash", "키 해시를 가져오는 중 오류 발생", e)
+        }
+    }
     
     loadReactNative(this)
   }

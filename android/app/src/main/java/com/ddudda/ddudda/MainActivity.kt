@@ -1,4 +1,4 @@
-package com.androidfe
+package com.ddudda.ddudda
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
