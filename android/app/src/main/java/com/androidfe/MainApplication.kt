@@ -9,6 +9,7 @@ import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
+import com.kakao.vectormap.KakaoMapSdk
 
 class MainApplication : Application(), ReactApplication {
 
@@ -33,6 +34,10 @@ class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
+    
+    // 카카오맵 SDK 초기화
+    KakaoMapSdk.init(this, BuildConfig.KAKAO_NATIVE_APP_KEY)
+    
     loadReactNative(this)
   }
 }
