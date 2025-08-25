@@ -18,6 +18,12 @@ buildscript {
     }
 }
 
-apply plugin: "com.facebook.react.rootproject"
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://devrepo.kakao.com/nexus/repository/kakaomap-releases/' }
+    }
+}
 
-implementation 'com.kakao.maps.open:android:2.12.8'
+apply plugin: "com.facebook.react.rootproject"

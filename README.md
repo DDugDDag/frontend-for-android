@@ -1,4 +1,5 @@
 ### Android simulator 실행 커맨드
+npm install
 npx react-native run-android
 
 ### 실행 환경
