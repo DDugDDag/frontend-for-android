@@ -15,6 +15,88 @@ npx react-native run-android
 https://ebook-product.kyobobook.co.kr/dig/preview/E000002950814#j_p03_html
 
 
+# 로컬 실행 가이드 (Android / React Native)
+
+## 1) 레포 클론 & 패키지 설치
+
+```bash
+git clone <REPO_URL>
+cd <REPO_DIR>
+npm install   # 또는 yarn
+```
+
+
+## 2) JDK 경로 지정 (환경변수 미사용 버전)
+
+`android/gradle.properties`의 17번째 줄에 **JDK 17 경로**를 직접 지정합니다.
+
+### Windows
+
+```properties
+org.gradle.java.home=C:/Program Files/Java/jdk-17
+```
+
+### macOS (Apple Silicon / Homebrew)
+
+```properties
+org.gradle.java.home=/opt/homebrew/opt/openjdk@17
+# 또는: /opt/homebrew/Cellar/openjdk@17/<버전>/libexec/openjdk.jdk/Contents/Home
+```
+
+> 위 경로는 각자 설치 경로에 맞게 조정하세요.
+### 트러블슈팅 (선택)
+
+* Gradle이 인식한 Java Home 확인:
+
+  ```bash
+  cd android
+  # Windows
+  gradlew.bat -v
+  # macOS / Linux
+  ./gradlew -v
+  ```
+
+  출력의 **Java home**이 위에서 설정한 경로와 일치해야 합니다.
+
+## 3) 카카오맵 해시키 등록 및 .env 준비
+
+프로젝트 루트 폴더에서 .env에 아래와 같이 등록
+```
+KAKAO_MAP_JS_API_KEY=`js키`
+KAKAO_NATIVE_APP_KEY=`app키`
+```
+
+[카카오맵 해시 키 등록 방법](https://developers.kakao.com/docs/latest/ko/android/getting-started#before-you-begin-add-key-hash)
+
+## 4) 빌드 준비 (Gradle 정리)
+
+```bash
+cd android
+# Windows
+gradlew.bat --stop && gradlew.bat clean
+# macOS / Linux
+./gradlew --stop && ./gradlew clean
+cd ..
+```
+
+
+## 5) 실행
+
+Metro(번들러) 실행 후, Android 빌드/설치:
+
+```bash
+# 터미널 1
+npm start   # 또는: npx react-native start
+
+# 터미널 2
+npx react-native run-android
+```
+
+> 에뮬레이터를 켜두었거나, 실제 기기를 USB 디버깅으로 연결해야 합니다.
+
+
+---
+
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
