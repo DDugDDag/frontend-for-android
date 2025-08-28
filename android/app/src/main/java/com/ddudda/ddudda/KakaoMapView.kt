@@ -19,6 +19,7 @@ class KakaoMapView(context: Context) : FrameLayout(context) {
     private var latitude: Double = 37.566826
     private var longitude: Double = 126.9786567
     private var level: Int = 3
+    private var showBicycleRoad: Boolean = false
 
     init {
         mapView = MapView(context)
@@ -36,6 +37,7 @@ class KakaoMapView(context: Context) : FrameLayout(context) {
             override fun onMapReady(map: KakaoMap) {
                 kakaoMap = map
                 updateMapLocation()
+                updateBicycleRoadOverlay()
             }
         })
     }
@@ -55,6 +57,11 @@ class KakaoMapView(context: Context) : FrameLayout(context) {
         updateMapLocation()
     }
 
+    fun setBicycleRoadVisible(visible: Boolean) {
+        showBicycleRoad = visible
+        updateBicycleRoadOverlay()
+    }
+
     private fun updateMapLocation() {
         kakaoMap?.let { map ->
             val cameraUpdate = CameraUpdateFactory.newCenterPosition(
@@ -62,6 +69,23 @@ class KakaoMapView(context: Context) : FrameLayout(context) {
                 level
             )
             map.moveCamera(cameraUpdate)
+        }
+    }
+
+    private fun updateBicycleRoadOverlay() {
+        kakaoMap?.let { map ->
+            try {
+                if (showBicycleRoad) {
+                    // 자전거도로 오버레이 켜기
+                    map.showOverlay("bicycle_road")
+                } else {
+                    // 자전거도로 오버레이 끄기
+                    map.hideOverlay("bicycle_road")
+                }
+            } catch (e: Exception) {
+                // 오버레이 API가 지원되지 않는 경우 무시
+                android.util.Log.w("KakaoMapView", "Bicycle road overlay not supported: ${e.message}")
+            }
         }
     }
 
@@ -94,5 +118,10 @@ class KakaoMapViewManager(reactContext: ReactApplicationContext) : SimpleViewMan
     @ReactProp(name = "level")
     fun setLevel(view: KakaoMapView, level: Int) {
         view.setLevel(level)
+    }
+
+    @ReactProp(name = "showBicycleRoad")
+    fun setBicycleRoadVisible(view: KakaoMapView, visible: Boolean) {
+        view.setBicycleRoadVisible(visible)
     }
 }
