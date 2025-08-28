@@ -38,6 +38,7 @@ function App() {
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
   const [useNativeSDK, setUseNativeSDK] = useState(false);
+  const [showBicycleRoad, setShowBicycleRoad] = useState(false);
 
   return (
     <View style={[styles.container, safeAreaInsets]}>
@@ -54,19 +55,34 @@ function AppContent() {
         </Text>
       </TouchableOpacity>
 
+      {useNativeSDK && (
+        <TouchableOpacity
+          style={[
+            styles.switchButton,
+            showBicycleRoad ? styles.bicycleButtonOn : styles.bicycleButtonOff,
+          ]}
+          onPress={() => setShowBicycleRoad(!showBicycleRoad)}
+        >
+          <Text style={styles.switchButtonText}>
+            자전거도로 {showBicycleRoad ? '끄기' : '켜기'}
+          </Text>
+        </TouchableOpacity>
+      )}
+
       <View style={styles.mapContainer}>
         {useNativeSDK ? (
           <KakaoMapNative
             latitude={36.35068134001625} // 대전 시청
             longitude={127.385312222259}
             level={15}
+            showBicycleRoad={showBicycleRoad}
             style={styles.nativeMap}
           />
         ) : (
           <KakaoMapWebView
             latitude={36.35068134001625} // 대전 시청
             longitude={127.385312222259}
-            level={1}
+            level={5}
           />
         )}
         {/* 36.35068134001625, 127.385312222259 대전시청 37.566826, 126.9786567 서울시청 */}
@@ -108,6 +124,12 @@ const styles = StyleSheet.create({
   nativeMap: {
     flex: 1,
     width: '100%',
+  },
+  bicycleButtonOn: {
+    backgroundColor: '#ff6b6b',
+  },
+  bicycleButtonOff: {
+    backgroundColor: '#28a745',
   },
   apiKeyText: {
     fontSize: 12,

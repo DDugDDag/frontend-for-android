@@ -5,6 +5,7 @@ interface KakaoMapNativeProps {
   latitude?: number;
   longitude?: number;
   level?: number;
+  showBicycleRoad?: boolean;
   style?: ViewStyle;
 }
 
@@ -15,6 +16,7 @@ const KakaoMapNative: React.FC<KakaoMapNativeProps> = ({
   latitude = 37.566826,
   longitude = 126.9786567,
   level = 3,
+  showBicycleRoad = false,
   style,
 }) => {
   return (
@@ -22,6 +24,7 @@ const KakaoMapNative: React.FC<KakaoMapNativeProps> = ({
       latitude={latitude}
       longitude={longitude}
       level={level}
+      showBicycleRoad={showBicycleRoad}
       style={style}
     />
   );
